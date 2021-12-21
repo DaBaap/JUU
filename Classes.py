@@ -154,7 +154,6 @@ def FCFS(P):
                 P[l] = P[i]                                                        
                 P[i] = temp
                 
-    print(P)
     ct = []
     tat = []
     wt = []
@@ -165,7 +164,6 @@ def FCFS(P):
     for i in range(1,len(P)):
 
         j = i - 1
-        print(i+1 ,len(P),ct[j][1] ,P[i][1])
         if ct[j][1] <= P[i][1]:
             ct.append([P[i][0],P[i][1]+P[i][2]])
         else:
@@ -188,11 +186,6 @@ def FCFS(P):
         else:
             gantt.append(ct[i][1])
             
-
-    print(gantt)
-    print(ct)
-    print(tat)
-    print(wt)
     return ct,tat,wt,gantt,P
 
 def SJF(P):
@@ -209,7 +202,6 @@ def SJF(P):
                 temp = P[l]
                 P[l] = P[i]                                                        
                 P[i] = temp
-    print(P)
     ct = []
     tat = []
     wt = []
@@ -219,7 +211,6 @@ def SJF(P):
     for i in range(1,len(P)):
 
         j = i - 1
-        print(i+1 ,len(P),ct[j][1] ,P[i][1])
         if ct[j][1] <= P[i][1]:
                 ct.append([P[i][0],P[i][1]+P[i][2]])
         else:
@@ -243,8 +234,5 @@ def SJF(P):
         else:
             gantt.append(ct[i][1])
             
-    print(gantt)
-    print(ct)
-    print(tat)
-    print(wt)
+
     return ct,tat,wt,gantt,P
