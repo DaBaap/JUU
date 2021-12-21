@@ -3,7 +3,6 @@ from Classes import OptionBox,button
 from secondpage import secondPge, second1
 
 pygame.init()
-angle = 0
 screen = pygame.display.set_mode((1400,883), pygame.NOFRAME)
 pygame.display.update()
 pygame.display.set_caption("JU Simulator")
@@ -13,10 +12,12 @@ icon = pygame.image.load('dog.png')
 bg   = pygame.image.load('download.png')
 logo = pygame.image.load('logo .png')
 arrow = pygame.image.load('arrow.png')
+cross = pygame.image.load('cross.png')
 
 bg   = pygame.transform.scale(bg,(1400,933))
 arrow = pygame.transform.scale(arrow,(10,16))
 logo = pygame.transform.scale(logo,(211,153))
+cross = pygame.transform.scale(cross, (16,16))
 pygame.display.set_icon(icon)
 
 clock = pygame.time.Clock()
@@ -100,6 +101,8 @@ while rn:
         start.draw(screen)
         exit.draw(screen)
         screen.blit(arrow,(442+110,670+12))
+        screen.blit(cross,(442+343+110,670+12))
+
         pygame.display.flip()
 
         for event in evt: 
