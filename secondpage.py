@@ -35,7 +35,7 @@ RtxtR = Rtxt.get_rect()
 GtxtR = Gtxt.get_rect()
 TtxtR.center = (700, 200)
 RtxtR.center = (386+50,640)
-GtxtR.center = (386+50,740)
+GtxtR.center = (386+50,640)
 
 back = pygame.image.load('arrow (1).png')
 simulate = button((105,118,124), 1033, 271,180,50, 'SIMULATE' , (245,250,253))
@@ -113,7 +113,7 @@ def secondPge(screen,evt, bg ,logo, static = False,Algo = ''):
 
     pygame.draw.rect(screen, (74,77,84), pygame.Rect(410, 200, 580, 400),  0, 4)
     pygame.draw.rect(screen, (243,243,243), pygame.Rect(410, 180, 580, 40),  0, 4)
-    pygame.draw.rect(screen, (20,20,20), pygame.Rect(368, 750, 665, 50),  2, 4)
+    pygame.draw.rect(screen, (20,20,20), pygame.Rect(368, 650, 665, 50),  2, 4)
     if cy+40 < 600 and not static:
         pygame.draw.rect(screen, (243,243,243), pygame.Rect(410, cy, 580, 5),  0, 1)
         draw_circle(screen, cx,cy, cr, (243,243,243))
@@ -205,7 +205,7 @@ def secondPge(screen,evt, bg ,logo, static = False,Algo = ''):
                     r = wtt[k].get_rect()
                     r.center = (w+250,h)
                     screen.blit(wtt[k], r)
-        pygame.draw.rect(screen, (74,77,84), pygame.Rect(50,300, 310,100),2,4)
+        pygame.draw.rect(screen, (74,77,84), pygame.Rect(25,300, 335,100),2,4)
         if wttt != 0 and tattt != 0:
             wait = Ctxt.render('Average Waiting Time = '+str(wttt), True, (20,20,20))
             waitr = wait.get_rect()
@@ -214,43 +214,65 @@ def secondPge(screen,evt, bg ,logo, static = False,Algo = ''):
 
             turn = Ctxt.render('Average Turnaround Time = '+str(tattt), True, (20,20,20))
             turnr = turn.get_rect()
-            turnr.center = (205,365)
+            turnr.center = (200,365)
             screen.blit(turn,turnr)                     
     
     if red_line <=665:
-        pygame.draw.rect(screen, (190,20,20), pygame.Rect(368, 798, red_line, 3),  0, 2)
+        pygame.draw.rect(screen, (190,20,20), pygame.Rect(368, 698, red_line, 3),  0, 2)
         z = 368
         c6 = int(661/(len(GanttChart)-1))
 
         if len(ct) != 0:
-            f = int(661/(len(GanttChart)-1))
+            # f = int(661/(len(GanttChart)-1))
             for a in range(len(ct)):
-                z = 366 + (f*a)
-                for h in range(len(GanttChart)):
+                # z = 366 + (f*a)
+                for h in range(u):
+                    f = ((661/GanttChart[-1])*int(GanttChart[h]))
                     if ct[a][1] == GanttChart[h]:
                         if ordered[a][1] == GanttChart[h-1]:
                             z = 366 + (f*(h-1))+2
-                            button((186,237,228), z, 752, f, 46, str(ct[a][0]), (29,60,55), 30).draw(screen)
+                            # z = 366 + (f)+2
+                            if h - 1 >= 0:
+                                # lwl = ((661/GanttChart[-1])*(int(GanttChart[h]) - int(GanttChart[h-1]))) 
+                                lwl = ((661/GanttChart[-1])*ordered[a][2]) 
+
+                            else:
+                                lwl = ((661/GanttChart[-1])*int(GanttChart[h]))
+                            print(str(ct[a][0]), ((661/GanttChart[-1])*int(GanttChart[h])), GanttChart[h], lwl, "h = ",h)
+                            button((186,237,228), z, 652, lwl, 46, str(ct[a][0]), (29,60,55), 30).draw(screen)
                     elif ordered[a][1] < GanttChart[h]:
                         if h+1<len(GanttChart) and ct[a][1] == GanttChart[h+1]:
-                            z = 366 + (f*(h))+2
-                            button((186,237,228), z, 752, f, 46, str(ct[a][0]), (29,60,55), 30).draw(screen)
+                            z = 366 + (f)+2
+                            # z = 366 + (f)+2
+
+                            if h - 1 >= 0:
+                                # lwl = ((661/GanttChart[-1])*(int(GanttChart[h+1]) - int(GanttChart[h-1]))) 
+                                lwl = ((661/GanttChart[-1])*ordered[a][2]) 
+
+                            else:
+                                lwl = ((661/GanttChart[-1])*int(GanttChart[h+1]))
+                            print(str(ct[a][0]), " adsa", ((661/GanttChart[-1])*int(GanttChart[h])), GanttChart[h],"h = ",h)
+                            button((186,237,228), z, 652, lwl, 46, str(ct[a][0]), (29,60,55), 30).draw(screen)
                     
         if len(GanttChart) != 0:
             for a in range(u):
-                z = 368 + (c6*a)
-                pygame.draw.line(screen,(0,0,0),(z,750),(z,820))
+                # z = 368 + (c6*a)
+                z = 368 + ((661/GanttChart[-1])*int(GanttChart[a]))
+                # Bt[a].txt)
+                pygame.draw.line(screen,(0,0,0),(z,650),(z,701))
                 O = Ctxt.render(str(GanttChart[a]), True, (0,0,0))
                 Ot = O.get_rect()
-                Ot.center = (z,835)
+                Ot.center = (z,710)
                 screen.blit(O,Ot)
 
         if simulatecheck and not pas:
             if len(GanttChart) != 0:
-                
-                if red_line+368 == ganVar or red_line+367 == ganVar:
+                if u != len(GanttChart) and (red_line+368 == 368 + int(((661/GanttChart[-1])*int(GanttChart[u]))) or red_line+367 == 368 +int(((661/GanttChart[-1])*int(GanttChart[u])))):
+                    #ganVar
                     if u != len(GanttChart):
                         u+=1
+                    if u == len(GanttChart):
+                        u = len(GanttChart)
                     ganVar += c6
                     if ganVar > 1033:
                         ganVar = 1033
@@ -497,15 +519,17 @@ def secondPge(screen,evt, bg ,logo, static = False,Algo = ''):
                                 if simulation: 
                                     time.sleep(0.5)
                                     pygame.display.update()
-                    wttt = 0
-                    for la in range(len(wt)):
-                        wttt+=int(wt[la][1])
-                    wttt = wttt/len(wt)
+                    if len(wt) != 0:
+                        wttt = 0
+                        for la in range(len(wt)):
+                            wttt+=int(wt[la][1])
+                        wttt = wttt/len(wt)
+                    if len(tat) != 0:
 
-                    tattt = 0
-                    for la in range(len(tat)):
-                        tattt+=int(tat[la][1])
-                    tattt = tattt/len(tat)
+                        tattt = 0
+                        for la in range(len(tat)):
+                            tattt+=int(tat[la][1])
+                        tattt = tattt/len(tat)
 
                                 
                 simulation = False
