@@ -3,7 +3,7 @@ from Classes import OptionBox,button
 from secondpage import secondPge, second1
 
 pygame.init()
-screen = pygame.display.set_mode((1400,883), pygame.NOFRAME)
+screen = pygame.display.set_mode((1400,720), pygame.NOFRAME)
 pygame.display.update()
 pygame.display.set_caption("JU Simulator")
 
@@ -49,8 +49,8 @@ Olist2 = OptionBox(
     410+328, 319+148, 160, 40, (182, 244, 233), (182, 244, 233), pygame.font.SysFont('arial', 25), 
     ["FCFS", "SJF"])
 
-start = button((74,77,84), 442, 670, 140,42, 'Start    ')
-exit = button((74,77,84), 442+343, 670, 140,42, 'Exit    ')
+start = button((74,77,84), 442, 640, 140,42, 'Start    ')
+exit = button((74,77,84), 442+343, 640, 140,42, 'Exit    ')
 close = pygame.Surface((31,23))
 close.set_alpha(0)
 close.fill((209,54,57))
@@ -100,8 +100,8 @@ while rn:
         Olist1.draw(screen)
         start.draw(screen)
         exit.draw(screen)
-        screen.blit(arrow,(442+110,670+12))
-        screen.blit(cross,(442+343+110,670+12))
+        screen.blit(arrow,(442+110,640+12))
+        screen.blit(cross,(442+343+110,640+12))
 
         pygame.display.flip()
 
@@ -120,11 +120,11 @@ while rn:
             if event.type == pygame.MOUSEMOTION:   
                 if start.isOver(pos):
                     start.color = (102,119,126)
-                    start.x,start.y = 442-5, 670-2
+                    start.x,start.y = 442-5, 640-2
                     start.width,start.height = 150,45
                 elif exit.isOver(pos):
                     exit.color = (102,119,126)
-                    exit.x,exit.y = 442+343-5, 670-2
+                    exit.x,exit.y = 442+343-5, 640-2
                     exit.width,exit.height = 150,45
                 elif pos[0] > 1369 and pos[0] < 1400:
                     if pos[1] > 0 and pos[1] < 23:
@@ -139,8 +139,8 @@ while rn:
                 else:
                     start.color = (74,77,84)
                     exit.color = (74,77,84)
-                    start.x,start.y = 442, 670
-                    exit.x,exit.y = 442+343, 670
+                    start.x,start.y = 442, 640
+                    exit.x,exit.y = 442+343, 640
                     start.width,start.height = 140,42
                     exit.width,exit.height = 140,42
                     close.set_alpha(0)
